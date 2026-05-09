@@ -20,15 +20,15 @@
     --text: #f3dcc4;
   }
 
-- { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
 width: 100%;
 min-height: 100vh;
 overflow-x: hidden;
-background: radial-gradient(ellipse at 50% 30%, var(–bg-3) 0%, var(–bg-2) 40%, var(–bg-1) 100%);
-font-family: ‘Cormorant Garamond’, serif;
-color: var(–text);
+background: radial-gradient(ellipse at 50% 30%, var(--bg-3) 0%, var(--bg-2) 40%, var(--bg-1) 100%);
+font-family: 'Cormorant Garamond', serif;
+color: var(--text);
 -webkit-tap-highlight-color: transparent;
 user-select: none;
 -webkit-user-select: none;
@@ -36,7 +36,7 @@ user-select: none;
 
 /* grain texture overlay */
 body::before {
-content: ‘’;
+content: '';
 position: fixed;
 inset: 0;
 background-image:
@@ -47,10 +47,10 @@ z-index: 1;
 }
 
 body::after {
-content: ‘’;
+content: '';
 position: fixed;
 inset: 0;
-background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘200’ height=‘200’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence baseFrequency=‘0.9’ numOctaves=‘2’/%3E%3CfeColorMatrix values=‘0 0 0 0 0.95 0 0 0 0 0.8 0 0 0 0 0.5 0 0 0 0.08 0’/%3E%3C/filter%3E%3Crect width=‘200’ height=‘200’ filter=‘url(%23n)’/%3E%3C/svg%3E”);
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.8 0 0 0 0 0.5 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
 opacity: 0.4;
 pointer-events: none;
 z-index: 2;
@@ -78,17 +78,17 @@ animation: fadeUp 1.6s 0.2s ease-out forwards;
 font-size: 11px;
 letter-spacing: 0.4em;
 text-transform: uppercase;
-color: var(–gold-soft);
+color: var(--gold-soft);
 font-weight: 400;
 margin-bottom: 12px;
 opacity: 0.75;
 }
 
 .title {
-font-family: ‘Allura’, cursive;
+font-family: 'Allura', cursive;
 font-size: clamp(48px, 13vw, 84px);
 font-weight: 400;
-color: var(–cream);
+color: var(--cream);
 line-height: 0.95;
 letter-spacing: 0.01em;
 text-shadow: 0 0 40px rgba(244, 196, 122, 0.3);
@@ -97,7 +97,7 @@ text-shadow: 0 0 40px rgba(244, 196, 122, 0.3);
 .subtitle {
 font-size: clamp(15px, 4vw, 18px);
 font-style: italic;
-color: var(–rose);
+color: var(--rose);
 margin-top: 8px;
 font-weight: 300;
 letter-spacing: 0.02em;
@@ -107,17 +107,17 @@ letter-spacing: 0.02em;
 margin: 14px auto;
 width: 60px;
 height: 1px;
-background: linear-gradient(90deg, transparent, var(–gold-soft), transparent);
+background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
 position: relative;
 }
 .ornament::before {
-content: ‘✦’;
+content: '✦';
 position: absolute;
 top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
-color: var(–gold);
-background: var(–bg-2);
+color: var(--gold);
+background: var(--bg-2);
 padding: 0 8px;
 font-size: 10px;
 }
@@ -126,7 +126,7 @@ font-size: 10px;
 text-align: center;
 font-size: 14px;
 font-style: italic;
-color: var(–text);
+color: var(--text);
 opacity: 0.7;
 margin-bottom: 20px;
 padding: 0 16px;
@@ -139,22 +139,22 @@ animation: pulse 3s infinite ease-in-out;
 }
 
 .counter {
-font-family: ‘Cormorant Garamond’, serif;
+font-family: 'Cormorant Garamond', serif;
 font-size: 13px;
 letter-spacing: 0.3em;
 text-transform: uppercase;
-color: var(–gold);
+color: var(--gold);
 margin-bottom: 28px;
 opacity: 0;
 animation: fadeUp 1.6s 0.6s ease-out forwards;
 }
 
 .counter span {
-font-family: ‘Allura’, cursive;
+font-family: 'Allura', cursive;
 font-size: 22px;
 text-transform: none;
 letter-spacing: 0;
-color: var(–cream);
+color: var(--cream);
 margin: 0 4px;
 }
 
@@ -205,7 +205,7 @@ transform-origin: 50% 100%;
 }
 
 .flame::after {
-content: ‘’;
+content: '';
 position: absolute;
 bottom: 2px;
 left: 50%;
@@ -270,7 +270,7 @@ width: 14px;
 height: 56px;
 background: linear-gradient(
 180deg,
-var(–cream) 0%,
+var(--cream) 0%,
 #e8d3b4 40%,
 #d4bc94 80%,
 #b89875 100%
@@ -307,7 +307,7 @@ margin-top: 36px;
 text-align: center;
 font-style: italic;
 font-size: 13px;
-color: var(–gold-soft);
+color: var(--gold-soft);
 opacity: 0;
 animation: fadeUp 1.6s 1.3s ease-out forwards;
 letter-spacing: 0.05em;
@@ -348,11 +348,11 @@ transform: translateY(0);
 opacity: 1;
 }
 
-.finale .eyebrow { color: var(–gold); margin-bottom: 16px; }
+.finale .eyebrow { color: var(--gold); margin-bottom: 16px; }
 
 .finale .title {
 font-size: clamp(56px, 16vw, 96px);
-color: var(–cream);
+color: var(--cream);
 margin-bottom: 18px;
 text-shadow: 0 0 60px rgba(244, 196, 122, 0.5);
 }
@@ -362,16 +362,16 @@ font-size: clamp(16px, 4.5vw, 19px);
 line-height: 1.7;
 font-weight: 300;
 font-style: italic;
-color: var(–text);
+color: var(--text);
 margin: 24px 0;
 }
 
 .letter p { margin-bottom: 18px; }
 
 .signature {
-font-family: ‘Allura’, cursive;
+font-family: 'Allura', cursive;
 font-size: clamp(28px, 7vw, 40px);
-color: var(–rose);
+color: var(--rose);
 margin-top: 24px;
 }
 
@@ -409,7 +409,7 @@ bottom: 14px;
 left: 0;
 right: 0;
 text-align: center;
-font-family: ‘Allura’, cursive;
+font-family: 'Allura', cursive;
 font-size: 22px;
 color: #5a3a26;
 line-height: 1;
@@ -432,7 +432,7 @@ text-align: center;
 font-size: 11px;
 letter-spacing: 0.35em;
 text-transform: uppercase;
-color: var(–gold-soft);
+color: var(--gold-soft);
 margin-top: 22px;
 opacity: 0.8;
 }
@@ -449,7 +449,7 @@ position: fixed;
 top: -30px;
 width: 14px;
 height: 14px;
-background: radial-gradient(circle at 30% 30%, var(–rose), #c97b6e);
+background: radial-gradient(circle at 30% 30%, var(--rose), #c97b6e);
 border-radius: 50% 0 50% 50%;
 pointer-events: none;
 z-index: 50;
@@ -470,10 +470,10 @@ to { opacity: 1; transform: translateY(0); }
 .replay {
 margin-top: 32px;
 background: transparent;
-border: 1px solid var(–gold-soft);
-color: var(–gold);
+border: 1px solid var(--gold-soft);
+color: var(--gold);
 padding: 12px 28px;
-font-family: ‘Cormorant Garamond’, serif;
+font-family: 'Cormorant Garamond', serif;
 font-size: 12px;
 letter-spacing: 0.3em;
 text-transform: uppercase;
@@ -483,8 +483,8 @@ border-radius: 0;
 }
 
 .replay:hover, .replay:active {
-background: var(–gold);
-color: var(–bg-1);
+background: var(--gold);
+color: var(--bg-1);
 }
 
 /* tap ripple */
@@ -504,10 +504,66 @@ background: rgba(255, 200, 100, 0.4);
 pointer-events: none;
 animation: ripple 0.6s ease-out;
 }
+
+  /* ---- light theme ---- */
+  :root[data-theme="light"] {
+    --bg-1: #fdf3e3;
+    --bg-2: #f7e3c9;
+    --bg-3: #efd0ad;
+    --gold: #a06a1f;
+    --gold-soft: #b88a4a;
+    --rose: #b85a4d;
+    --cream: #4a2a18;
+    --text: #3d2113;
+  }
+  :root[data-theme="light"] .keepsake { background: #ffffff; box-shadow: 0 20px 50px rgba(80, 40, 20, 0.25), 0 0 60px rgba(184, 138, 74, 0.18); }
+  :root[data-theme="light"] .keepsake img { background: #f3e3c8; }
+  :root[data-theme="light"] .keepsake .caption { color: #5a3a26; }
+  :root[data-theme="light"] body::after { mix-blend-mode: multiply; opacity: 0.18; }
+  :root[data-theme="light"] .ornament::before { background: var(--bg-2); }
+  :root[data-theme="light"] .finale { background: radial-gradient(ellipse at 50% 50%, #f7e3c9 0%, #efd0ad 90%); }
+
+  /* ---- theme toggle ---- */
+  .theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 60;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--gold-soft);
+    background: rgba(0, 0, 0, 0.25);
+    color: var(--gold);
+    font-size: 18px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  }
+  .theme-toggle:hover, .theme-toggle:active { transform: scale(1.06); }
+  :root[data-theme="light"] .theme-toggle {
+    background: rgba(255, 255, 255, 0.55);
+    border-color: var(--gold);
+  }
+  .theme-toggle .icon-sun { display: none; }
+  .theme-toggle .icon-moon { display: inline; }
+  :root[data-theme="light"] .theme-toggle .icon-sun { display: inline; }
+  :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
 </style>
 
 </head>
 <body>
+
+<button class="theme-toggle" type="button" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+  <span class="icon-moon" aria-hidden="true">☾</span>
+  <span class="icon-sun" aria-hidden="true">☼</span>
+</button>
 
 <div class="stage">
   <div class="header">
@@ -735,6 +791,29 @@ animation: ripple 0.6s ease-out;
   }
 
   buildCandles();
+
+  // ---- theme toggle ----
+  (function () {
+    const root = document.documentElement;
+    const btn = document.getElementById('themeToggle');
+    const KEY = 'kookie-theme';
+    const stored = (function () {
+      try { return localStorage.getItem(KEY); } catch (e) { return null; }
+    })();
+    const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    const initial = stored || (prefersLight ? 'light' : 'dark');
+    root.setAttribute('data-theme', initial);
+    if (btn) {
+      btn.setAttribute('aria-pressed', String(initial === 'dark'));
+      btn.addEventListener('click', function () {
+        const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        btn.setAttribute('aria-pressed', String(next === 'dark'));
+        try { localStorage.setItem(KEY, next); } catch (e) {}
+      });
+    }
+  })();
+
 </script>
 
 </body>
