@@ -318,17 +318,19 @@ letter-spacing: 0.05em;
 position: fixed;
 inset: 0;
 z-index: 100;
-display: flex;
-align-items: center;
-justify-content: center;
-flex-direction: column;
+display: block;
 background: radial-gradient(ellipse at 50% 50%, #2a0d12 0%, #0a0306 90%);
 opacity: 0;
 pointer-events: none;
 transition: opacity 1.8s ease;
-padding: 40px 24px;
+padding: 40px 24px 60px;
 text-align: center;
 overflow-y: auto;
+-webkit-overflow-scrolling: touch;
+}
+
+.finale .finale-content {
+margin: 0 auto;
 }
 
 .finale.show {
@@ -367,6 +369,14 @@ margin: 24px 0;
 }
 
 .letter p { margin-bottom: 18px; }
+.letter .verse { line-height: 1.5; margin: 22px 0; }
+.letter .verse br + span { display: block; }
+.letter-divider {
+  width: 80px;
+  height: 1px;
+  margin: 28px auto 22px;
+  background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+}
 
 .signature {
 font-family: 'Allura', cursive;
@@ -577,7 +587,7 @@ animation: ripple 0.6s ease-out;
     <span id="lit">16</span> candles still lit
   </div>
 
-  <div class="instruction">touch a candle to blow it out · or blow into your phone</div>
+  <div class="instruction">touch a candle to blow it out</div>
 
   <div class="candle-grid" id="grid"></div>
 
@@ -589,7 +599,6 @@ animation: ripple 0.6s ease-out;
     <div class="eyebrow">A Note From Me</div>
     <h2 class="title">Kookie<span style="display:block; font-size: 0.35em; color: var(--gold-soft); margin-top: 8px; letter-spacing: 0.1em;">my favourite person</span></h2>
 
-```
 <div class="keepsake-label">— the night it became us —</div>
 <div class="keepsake">
   <div class="pin"></div>
@@ -603,10 +612,28 @@ animation: ripple 0.6s ease-out;
   <p>I'm sorry.</p>
 </div>
 
+<div class="letter-divider"></div>
+
+<div class="letter letter-long">
+  <p>And ye this is the letter i wrote at 1 am. I literally cant sleep rn even tho am sleepy af i cant. I cant get over the innocent face of my baby gal who literally has showered me with all the love and care since day 1. To me kookie you are literally the most precious soul on this planet and pls believe me on that. You really mean world to me.</p>
+
+  <p>I cant sleep knowing my gal had thoughts in her mind which made her cry but i really wanna tell you there wasnt iota of truth in everything u thought.</p>
+
+  <p class="verse">
+    To me youre prettiest soul on this earth<br>
+    To me youre my kookie<br>
+    To me youre my k<br>
+    To me youre my khushi<br>
+    To me youre my powerlifter<br>
+    And to me youre literally everything
+  </p>
+
+  <p>Ill say what i told to u on ur birthday — that you pull this guy out of his room and showed him there exists a beautiful world out there. I cant wait to see more of the world with my gal, with my kookie, and with my k.</p>
+</div>
+
 <div class="signature">yours, always — Doogie <span class="heart">♥</span></div>
 
 <button class="replay" onclick="replay()">light them again</button>
-```
 
   </div>
 </div>
@@ -619,8 +646,6 @@ animation: ripple 0.6s ease-out;
   const finale = document.getElementById('finale');
 
   let blown = 0;
-  let micActive = false;
-  let micPermissionAsked = false;
 
   const messages = [
     'a flame for every reason I\'m yours',
@@ -665,7 +690,6 @@ animation: ripple 0.6s ease-out;
       const blow = (e) => {
         e.preventDefault();
         if (c.classList.contains('out')) return;
-        if (!micPermissionAsked) startMic();
         blowOut(c);
       };
 
@@ -673,66 +697,6 @@ animation: ripple 0.6s ease-out;
       c.addEventListener('touchstart', blow, { passive: false });
 
       grid.appendChild(c);
-    }
-  }
-
-  // Microphone-based blow detection
-  async function startMic() {
-    micPermissionAsked = true;
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const source = ctx.createMediaStreamSource(stream);
-      const analyser = ctx.createAnalyser();
-      analyser.fftSize = 1024;
-      analyser.smoothingTimeConstant = 0.3;
-      source.connect(analyser);
-
-      const data = new Uint8Array(analyser.frequencyBinCount);
-      micActive = true;
-      progress.textContent = 'now blow into your phone, gently 💨';
-
-      let cooldown = 0;
-      function check() {
-        if (!micActive) return;
-        analyser.getByteFrequencyData(data);
-
-        // Blowing creates a low-frequency rumble across many bins.
-        // Average overall energy AND sample low-band specifically.
-        let sum = 0;
-        let lowSum = 0;
-        const lowEnd = Math.floor(data.length * 0.15);
-        for (let i = 0; i < data.length; i++) {
-          sum += data[i];
-          if (i < lowEnd) lowSum += data[i];
-        }
-        const avg = sum / data.length;
-        const lowAvg = lowSum / lowEnd;
-
-        // Tunable thresholds. Blow is sustained low-freq energy.
-        if (cooldown <= 0 && avg > 35 && lowAvg > 55) {
-          // Blow detected → put out a couple of candles for that puff
-          const lit = [...document.querySelectorAll('.candle:not(.out)')];
-          if (lit.length > 0) {
-            // Stronger blow = more candles out
-            const strength = Math.min(3, Math.floor((lowAvg - 50) / 20) + 1);
-            for (let i = 0; i < Math.min(strength, lit.length); i++) {
-              // Pick random unlit candle for natural feel
-              const pool = [...document.querySelectorAll('.candle:not(.out)')];
-              const pick = pool[Math.floor(Math.random() * pool.length)];
-              if (pick) blowOut(pick);
-            }
-            cooldown = 12; // ~200ms between detections
-          }
-        }
-        if (cooldown > 0) cooldown--;
-
-        requestAnimationFrame(check);
-      }
-      check();
-    } catch (err) {
-      // Mic denied or unavailable — tap-and-hold still works
-      progress.textContent = 'touch each candle to blow it out';
     }
   }
 
@@ -749,15 +713,12 @@ animation: ripple 0.6s ease-out;
     blown++;
     const remaining = TOTAL - blown;
     litCounter.textContent = remaining;
-    if (!micActive || blown === TOTAL) {
-      progress.textContent = messages[blown] || messages[messages.length - 1];
-    }
+    progress.textContent = messages[blown] || messages[messages.length - 1];
 
     // gentle haptic if supported
     if (window.navigator.vibrate) window.navigator.vibrate(30);
 
     if (blown === TOTAL) {
-      micActive = false;
       setTimeout(showFinale, 900);
     }
   }
