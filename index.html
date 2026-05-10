@@ -565,10 +565,46 @@ animation: ripple 0.6s ease-out;
   :root[data-theme="light"] .theme-toggle .icon-sun { display: inline; }
   :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
 
+  /* ---- visit counter ---- */
+  .visit-counter {
+    position: fixed;
+    top: 22px;
+    right: 68px;
+    z-index: 60;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--gold-soft);
+    background: rgba(0, 0, 0, 0.25);
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    transition: opacity 0.6s ease, background 0.3s ease, color 0.3s ease;
+    pointer-events: none;
+  }
+  .visit-counter.show { opacity: 0.85; }
+  .visit-counter .vc-heart { color: var(--rose); font-size: 12px; }
+  :root[data-theme="light"] .visit-counter {
+    background: rgba(255, 255, 255, 0.55);
+    border-color: var(--gold);
+  }
+
 </style>
 
 </head>
 <body>
+
+<div class="visit-counter" id="visitCounter" aria-label="visit count" title="visits">
+  <span class="vc-heart" aria-hidden="true">♡</span>
+  <span class="vc-num" id="visitCounterNum">—</span>
+</div>
 
 <button class="theme-toggle" type="button" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
   <span class="icon-moon" aria-hidden="true">☾</span>
@@ -773,6 +809,22 @@ animation: ripple 0.6s ease-out;
         try { localStorage.setItem(KEY, next); } catch (e) {}
       });
     }
+  })();
+
+  // ---- visit counter (abacus.jasoncameron.dev) ----
+  (function () {
+    const wrap = document.getElementById('visitCounter');
+    const num = document.getElementById('visitCounterNum');
+    if (!wrap || !num) return;
+    fetch('https://abacus.jasoncameron.dev/hit/dookieversari/visits')
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+      .then(function (data) {
+        const v = data && (data.value != null ? data.value : data.count);
+        if (v == null) return;
+        num.textContent = v;
+        wrap.classList.add('show');
+      })
+      .catch(function () { /* hide silently on failure */ });
   })();
 
 </script>
